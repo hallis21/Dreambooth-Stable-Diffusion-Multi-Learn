@@ -68,7 +68,7 @@ Now, if you wanna try to do this... please read the warnings below first:
 - Sign up for [Vast.AI](https://vast.ai/)
 - Add some funds (I typically add them in $10 increments)
 - Navigate to the [Client - Create page](https://vast.ai/console/create/)
-  - Select pytorch/pytorch as your docker image, and select "Use Jupyter Lab Interface"
+  - Select pytorch/pytorch as your docker image, and the buttons "Use Jupyter Lab Interface" and "Jupyter direct HTTPS"
   - ![img.png](readme-images/vast-ai-step1-select-docker-image.png)
 - You will want to increase your disk space, and filter on GPU RAM (12gb checkpoint files + 4gb model file + regularization images + other stuff adds up fast)
   - I typically allocate 150GB
@@ -76,6 +76,7 @@ Now, if you wanna try to do this... please read the warnings below first:
   - Also good to check the Upload/Download speed for enough bandwidth so you don't spend all your money waiting for things to download.
 - Select the instance you want, and click `Rent`, then head over to your [Instances](https://vast.ai/console/instances/) page and click `Open`
   - ![img.png](readme-images/vast-ai-step3-instances.png)
+  - You will get an unsafe certificate warning. Click past the warning or install the [Vast cert](https://vast.ai/static/jvastai_root.cer).
 - Click `Notebook -> Python 3` (You can do this next step a number of ways, but I typically do this)
   - ![img.png](readme-images/vast-ai-step4-get-repo.png)
 - Clone Joe's repo with this command
@@ -100,9 +101,15 @@ A few bits about regularization images were added that we all thought were super
 ...and with completely blank regularization images:
 <br><img src="https://media.discordapp.net/attachments/1023293330601287711/1024933371102629898/IMG_7579.JPG" width="200">
 
-So, because regularization has no effect, this isn't Dreambooth at all.
+And here's what `"photograph of an apple"` looked like before I messed with code a bit:
+<br><img src="https://media.discordapp.net/attachments/1018943815370952855/1018946569850069052/unknown.png" width="200">
 
-This repo is more accurately called *"Unfrozen Model Textual Inversion for Stable Diffusion"*.
+We're not realizing the "regularization class" bits of this code have no effect, and that there is little to no prior preservation loss.
+
+So, out of respect to both the MIT team and the Google researchers, I'm renaming this fork to:
+*"Unfrozen Model Textual Inversion for Stable Diffusion"*.
+
+For an alternate implementation that attempts prior loss preservation, please see ["Alternate Option"](#hugging-face-diffusers) below.
 
 
 # <a name="using-the-generated-model"></a> Using the generated model
@@ -194,7 +201,7 @@ No problem. We can fix that with the prompt:
 `JoePenna person in a portrait photograph, JoePenna person in a 85mm medium format photo of JoePenna person`
 
 
-### More tips and help here: [Stable Diffusion Dreambooth Discord](https://discord.com/channels/1023277529424986162/1024716296610385981)
+### More tips and help here: [Stable Diffusion Dreambooth Discord](https://discord.com/invite/qbMuXBXyHA)
 
 # <a name="hugging-face-diffusers"></a> Hugging Face Diffusers - Alternate Option
 
